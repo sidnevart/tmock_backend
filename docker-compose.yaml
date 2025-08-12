@@ -1,0 +1,36 @@
+services:
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - tmock-net
+  mongodb:
+    image: mongo
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=tmock_admin_un
+      - MONGO_INITDB_ROOT_PASSWORD=tmock_admin_pswd
+      -
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=tmock_admin_un
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=tmock_admin_pswd
+      - ME_CONFIG_MONGODB_SERVER=
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  mongo:
