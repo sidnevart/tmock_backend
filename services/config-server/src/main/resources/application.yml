@@ -1,0 +1,19 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native   # используем "native" бекенд (classpath/filesystem/git можно настроить)
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configurations
+
+# Если не хочешь, чтобы config-server регистрировался в Eureka:
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

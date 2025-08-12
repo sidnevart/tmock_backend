@@ -1,11 +1,5 @@
 services:
-  zipkin:
-    container_name: zipkin
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-    networks:
-      - tmock-net
+
   mongodb:
     image: mongo
     container_name: mongo_db
