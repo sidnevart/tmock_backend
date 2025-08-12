@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4610acc1-3b3b-426a-9cc4-e1805d25f22c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/config-server/src/main/resources/configurations/discovery-service.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="4610acc1-3b3b-426a-9cc4-e1805d25f22c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +76,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "Spring Boot.ConfigServerApplication.executor": "Debug",
     "Spring Boot.DiscoveryApplication.executor": "Debug",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "go.import.settings.migrated": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -156,7 +152,7 @@
       <workItem from="1754338125039" duration="4045000" />
       <workItem from="1754896580855" duration="619000" />
       <workItem from="1755028682765" duration="5298000" />
-      <workItem from="1755034080596" duration="3750000" />
+      <workItem from="1755034080596" duration="4130000" />
     </task>
     <servers />
   </component>
