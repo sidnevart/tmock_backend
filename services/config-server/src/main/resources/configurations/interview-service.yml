@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      username: tmockadminun
+      password: tmockadminpswd
+      host: localhost
+      port: 27017
+      database: interview-service
+      authentication-database: admin
+server:
+  port: 8050
+
