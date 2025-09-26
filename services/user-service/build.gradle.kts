@@ -32,6 +32,13 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("org.springframework.security:spring-security-oauth2-jose") // jwk decoder
+
+	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
+	testImplementation("org.springframework.security:spring-security-test")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

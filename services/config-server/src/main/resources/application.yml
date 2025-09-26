@@ -12,6 +12,9 @@ spring:
         native:
           search-locations: classpath:/configurations
 
+
+
+
 eureka:
   client:
     register-with-eureka: false

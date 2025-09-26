@@ -1,12 +1,15 @@
 spring:
+
   data:
     mongodb:
-      username: tmockadminun
-      password: tmockadminpswd
-      host: localhost
-      port: 27017
-      database: user-service
-      authentication-database: admin
+      uri: mongodb://tmockadminun:tmockadminpswd@localhost:27017/user-service?authSource=admin
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
 server:
   port: 8090
 

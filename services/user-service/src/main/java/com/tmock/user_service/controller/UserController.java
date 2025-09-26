@@ -1,45 +1,60 @@
 package com.tmock.user_service.controller;
 
-import com.tmock.user_service.request.UserRequest;
-import com.tmock.user_service.response.UserResponse;
-import com.tmock.user_service.service.UserService;
-import jakarta.validation.Valid;
+import com.tmock.user_service.dto.RegisterTelegramDto;
+import com.tmock.user_service.kafka.UserCreationConfirmation;
+import com.tmock.user_service.kafka.UserProducer;
+import com.tmock.user_service.model.User;
+import com.tmock.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.oauth2.jwt.Jwt;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService service;
+    private final UserRepository userRepository;
+    private final UserProducer userProducer;
 
-    @PostMapping
-    public ResponseEntity<String> create(@RequestBody @Valid UserRequest request) {
-        return ResponseEntity.ok(service.createUser(request));
+    @PostMapping("/register-telegram")
+    public User register(@RequestBody RegisterTelegramDto dto){
+
+        var saved = userRepository.findByTelegramId(dto.telegramId()).orElseGet(() ->
+                userRepository.save(
+                        User.builder()
+                                .telegramId(dto.telegramId())
+                                .username(dto.username())
+                                .firstName(dto.firstName())
+                                .lastName(dto.lastName())
+                                .build()
+                )
+        );
+        userProducer.sendUserCreationConfirmation(new UserCreationConfirmation(saved.getTelegramId(), saved.getUsername(), saved.getFirstName(), saved.getLastName()));
+        return saved;
     }
 
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody @Valid UserRequest userRequest) {
-        service.updateUser(userRequest);
-        return ResponseEntity.accepted().build();
+    @GetMapping("/{telegramId}")
+    public ResponseEntity<User> getUser(@PathVariable("telegramId") Long telegramId){
+        return userRepository.findByTelegramId(telegramId).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> findAll() {
-        return ResponseEntity.ok(service.findAllUsers());
+
+    @GetMapping("/by-telegram/{telegramId}")
+    public ResponseEntity<User> getByTelegram(@PathVariable Long telegramId) {
+        return userRepository.findByTelegramId(telegramId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/exits/{user-id}")
-    public ResponseEntity<UserResponse> exists(@PathVariable("user-id") String userId) {
-        return ResponseEntity.ok(service.findById(userId));
+    @GetMapping("/by_id/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") String id){
+        return userRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{user-id}")
-    public ResponseEntity<Void> delete(@PathVariable("user-id") String userId) {
-        service.deleteUser(userId);
-        return ResponseEntity.accepted().build();
-    }
+
 }
