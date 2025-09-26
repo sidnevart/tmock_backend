@@ -22,8 +22,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final JwtService jwt;
-    private final AuthEventsProducer producer;
     private final CredentialService credentialService;
     private final UserClient userClient;
     private final TokenService tokenService;

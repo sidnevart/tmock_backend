@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://tmockadminun:tmockadminpswd@localhost:27017/user-service?authSource=admin
+
+server:
+  port: 8094

@@ -11,5 +11,7 @@ spring:
       properties:
         spring.json.add.type.headers: true
 
+
+
 server:
   port: 8090
